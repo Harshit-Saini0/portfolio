@@ -1,0 +1,456 @@
+:root {
+  --bg: #fbfbfa;
+  --fg: #16150f;
+  --muted: #6f6d66;
+  --line: #e3e1da;
+  --accent: #16150f;
+
+  /* The two ends of the scroll-driven colour wash. */
+  --wash-top: #fbfbfa;
+  --wash-bottom: #eceae1;
+  /* Colour of the backdrop dot terrain. */
+  --dot: #6b2231;
+  /* 0 at the top of the page → 1 at the bottom. Set by Backdrop.astro. */
+  --scroll: 0;
+
+  --measure: 34rem;
+  --gap: clamp(3.5rem, 9vw, 6.5rem);
+
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter,
+    Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101010;
+    --fg: #ececea;
+    --muted: #8d8b85;
+    --line: #262624;
+    --accent: #ececea;
+
+    --wash-top: #101010;
+    --wash-bottom: #1a1a18;
+    --dot: #8f3040;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+p { margin: 0 0 1em; max-width: var(--measure); }
+p:last-child { margin-bottom: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.15s ease, opacity 0.15s ease;
+}
+a:hover { border-color: var(--accent); }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Backdrop ───────────────────────────────────────────── */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--wash-top);
+}
+
+/* Second colour layered over the first; its opacity tracks scroll depth,
+   so the page warms up gradually as you move down it. */
+.backdrop-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(170deg, var(--wash-top) 0%, var(--wash-bottom) 100%);
+  opacity: var(--scroll);
+  transition: opacity 0.4s linear;
+}
+
+.backdrop-dots {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scroll rail ────────────────────────────────────────── */
+
+.rail {
+  position: fixed;
+  top: 50%;
+  right: max(1.25rem, calc((100vw - 46rem) / 4));
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.rail ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.rail a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-bottom: none;
+  padding: 0.15rem 0;
+}
+
+.rail-tick {
+  display: block;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--fg);
+  opacity: 0.22;
+  transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+}
+
+.rail a:hover .rail-tick { opacity: 0.55; width: 1.6rem; }
+
+.rail a.is-active .rail-tick {
+  opacity: 1;
+  width: 1.9rem;
+}
+
+.rail-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rail:hover .rail-label,
+.rail a:focus-visible .rail-label,
+.rail a.is-active .rail-label {
+  opacity: 1;
+  transform: none;
+}
+.rail a.is-active .rail-label { color: var(--fg); }
+
+/* Vertical line behind the ticks, with a fill that tracks scroll depth. */
+.rail-line {
+  position: absolute;
+  right: 0;
+  top: -0.75rem;
+  bottom: -0.75rem;
+  width: 1px;
+  background: var(--line);
+}
+
+.rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  opacity: 0.35;
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+/* Not enough room beside the content on narrow screens. */
+@media (max-width: 60rem) {
+  .rail { display: none; }
+}
+
+/* ── Reveal on scroll ───────────────────────────────────── */
+
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+
+.wrap {
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section { padding-block: var(--gap); }
+/* Keep the sticky header from covering the top of a jumped-to section. */
+section[id] { scroll-margin-top: 4.5rem; }
+.section + .section { border-top: 1px solid var(--line); }
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 2rem;
+}
+
+.muted { color: var(--muted); }
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.75rem;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.site-header a { border-bottom: none; color: var(--muted); }
+.site-header a:hover { color: var(--fg); }
+.site-header .brand { color: var(--fg); font-weight: 500; }
+
+@media (max-width: 34rem) {
+  .site-header nav a:not(.always) { display: none; }
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+
+.hero { padding-block: clamp(4rem, 12vw, 8rem) var(--gap); }
+
+.hero h1 {
+  font-size: clamp(1.9rem, 5.5vw, 3rem);
+  max-width: 18ch;
+  margin-bottom: 1.5rem;
+}
+
+.hero .intro {
+  font-size: 1.0625rem;
+  color: var(--muted);
+  max-width: var(--measure);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 2.25rem;
+  font-size: 0.9rem;
+}
+
+/* ── Item lists (projects / writing) ────────────────────── */
+
+.items { display: grid; gap: 0; }
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 0.25rem 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+  border-top: none;
+}
+.item:first-child { border-top: 1px solid var(--line); }
+.item:hover .item-title { opacity: 0.6; }
+
+.item-title { font-size: 1.0625rem; font-weight: 500; transition: opacity 0.15s ease; }
+.item-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.item-summary {
+  grid-column: 1 / -1;
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-style: italic;
+}
+
+/* ── Overview cards (landing page) ──────────────────────── */
+
+.cards { display: grid; gap: 0; }
+
+.card {
+  display: block;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--line);
+  border-top: none;
+}
+.card:first-child { border-top: 1px solid var(--line); }
+
+.card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.card h2 { font-size: 1.375rem; }
+
+.card-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+}
+.card:hover .card-arrow { transform: translateX(4px); color: var(--fg); }
+
+.card p { margin: 0.5rem 0 0; color: var(--muted); font-size: 0.9375rem; }
+
+.card-count {
+  display: block;
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Interior page headers ──────────────────────────────── */
+
+.page-head { padding-block: clamp(3rem, 9vw, 5rem) 0; }
+.page-head h1 { font-size: clamp(1.75rem, 4.5vw, 2.5rem); }
+.page-head .lede {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+/* ── Clients ────────────────────────────────────────────── */
+
+.clients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ── Contact + footer ───────────────────────────────────── */
+
+.contact h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1rem;
+  max-width: 20ch;
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding-block: 2rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+}
+
+/* ── Prose (project detail pages) ───────────────────────── */
+
+.prose { max-width: var(--measure); }
+.prose h2 { font-size: 1.25rem; margin: 2.5rem 0 0.75rem; }
+.prose h3 { font-size: 1.0625rem; margin: 2rem 0 0.5rem; }
+.prose ul, .prose ol { padding-left: 1.15rem; margin: 0 0 1em; }
+.prose li { margin-bottom: 0.35rem; }
+.prose img { margin: 2rem 0; border-radius: 4px; }
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+}
+.prose pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+.prose pre code { background: none; padding: 0; }
+
+.back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: none;
+  margin-bottom: 2.5rem;
+}
+.back:hover { color: var(--fg); }

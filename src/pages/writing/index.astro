@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { overview } from '../../site.config';
+
+const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Base title="Writing" description={overview.writing}>
+  <section class="page-head wrap">
+    <h1 data-reveal>Writing</h1>
+    <p class="lede" data-reveal>{overview.writing}</p>
+  </section>
+
+  <section class="section wrap">
+    {
+      posts.length === 0 ? (
+        <p class="empty">Add markdown files to src/content/writing/ to fill this in.</p>
+      ) : (
+        <div class="items">
+          {posts.map((w, i) => (
+            <a
+              class="item"
+              href={w.data.external ?? `/writing/${w.id}/`}
+              rel={w.data.external ? 'noopener' : undefined}
+              data-reveal
+              data-reveal-delay={i * 70}
+            >
+              <span class="item-title">{w.data.title}</span>
+              <span class="item-meta">{w.data.date.getFullYear()}</span>
+              {w.data.summary && <span class="item-summary">{w.data.summary}</span>}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Base>

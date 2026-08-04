@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, about, socials, overview } from '../site.config';
+
+const sections = [
+  { id: 'about', label: 'About' },
+  { id: 'contact', label: 'Contact' },
+];
+---
+
+<Base title="About" description={overview.about} sections={sections}>
+  <section id="about" class="page-head wrap">
+    <h1 data-reveal>About</h1>
+    <p class="lede" data-reveal>{overview.about}</p>
+  </section>
+
+  <section class="section wrap">
+    {about.map((para) => <p data-reveal>{para}</p>)}
+
+    <div class="socials" data-reveal>
+      {socials.map((s) => <a href={s.href} rel="me noopener">{s.label}</a>)}
+    </div>
+  </section>
+
+  <section id="contact" class="section wrap contact">
+    <p class="section-label" data-reveal>Contact</p>
+    <p data-reveal><a href={`mailto:${site.email}`}>{site.email}</a></p>
+  </section>
+</Base>

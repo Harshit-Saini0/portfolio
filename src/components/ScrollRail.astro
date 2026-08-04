@@ -1,0 +1,81 @@
+---
+// A always-visible rail down the right edge. One tick per section, a fill that
+// tracks scroll depth, and click-to-jump. Rendered server-side so it works
+// without JS (the ticks are plain anchors); the script only adds the active
+// state and the progress fill.
+
+interface Props {
+  sections: { id: string; label: string }[];
+}
+
+const { sections } = Astro.props;
+---
+
+{
+  sections.length > 1 && (
+    <nav class="rail" aria-label="Sections">
+      <span class="rail-line" aria-hidden="true">
+        <span class="rail-fill"></span>
+      </span>
+      <ul>
+        {sections.map((s) => (
+          <li>
+            <a href={`#${s.id}`} data-rail-link={s.id}>
+              <span class="rail-label">{s.label}</span>
+              <span class="rail-tick" aria-hidden="true" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  const rail = document.querySelector<HTMLElement>('.rail');
+  const fill = document.querySelector<HTMLElement>('.rail-fill');
+
+  if (rail) {
+    const links = Array.from(rail.querySelectorAll<HTMLAnchorElement>('[data-rail-link]'));
+    const sections = links
+      .map((link) => document.getElementById(link.dataset.railLink!))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    const setActive = (id: string | null) => {
+      for (const link of links) {
+        link.classList.toggle('is-active', link.dataset.railLink === id);
+      }
+    };
+
+    // Progress fill tracks overall scroll depth.
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const root = document.documentElement;
+      const max = root.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (fill) fill.style.transform = `scaleY(${p.toFixed(4)})`;
+
+      // Active = the last section whose top has passed the 40% line.
+      const line = window.innerHeight * 0.4;
+      let current: string | null = sections[0]?.id ?? null;
+      for (const el of sections) {
+        if (el.getBoundingClientRect().top <= line) current = el.id;
+      }
+      setActive(current);
+    };
+
+    addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    addEventListener('resize', update, { passive: true });
+    update();
+  }
+</script>

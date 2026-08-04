@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { overview } from '../../site.config';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Base title="Work" description={overview.work}>
+  <section class="page-head wrap">
+    <h1 data-reveal>Work</h1>
+    <p class="lede" data-reveal>{overview.work}</p>
+  </section>
+
+  <section class="section wrap">
+    {
+      projects.length === 0 ? (
+        <p class="empty">Add markdown files to src/content/projects/ to fill this in.</p>
+      ) : (
+        <div class="items">
+          {projects.map((p, i) => (
+            <a
+              class="item"
+              href={p.data.external ?? `/work/${p.id}/`}
+              rel={p.data.external ? 'noopener' : undefined}
+              data-reveal
+              data-reveal-delay={i * 70}
+            >
+              <span class="item-title">{p.data.title}</span>
+              <span class="item-meta">
+                {p.data.kind} · {p.data.date.getFullYear()}
+              </span>
+              <span class="item-summary">{p.data.summary}</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Base>
