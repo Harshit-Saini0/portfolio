@@ -8,10 +8,10 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 );
 ---
 
-<Base title="Work" description={overview.work}>
+<Base title="Projects" description={overview.projects}>
   <section class="page-head wrap">
-    <h1 data-reveal>Work</h1>
-    <p class="lede" data-reveal>{overview.work}</p>
+    <h1 data-reveal>Projects</h1>
+    <p class="lede" data-reveal>{overview.projects}</p>
   </section>
 
   <section class="section wrap">
@@ -23,7 +23,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
           {projects.map((p, i) => (
             <a
               class="item"
-              href={p.data.external ?? `/work/${p.id}/`}
+              href={p.data.external ?? `/projects/${p.id}/`}
               rel={p.data.external ? 'noopener' : undefined}
               data-reveal
               data-reveal-delay={i * 70}

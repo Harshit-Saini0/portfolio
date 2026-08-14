@@ -6,15 +6,25 @@ import { site, hero, socials, clients, overview } from '../site.config';
 const published = (c: { data: { draft: boolean } }) => !c.data.draft;
 
 const projects = await getCollection('projects', published);
-const writing = await getCollection('writing', published);
+const experience = await getCollection('experience', published);
 
 const count = (n: number, one: string, many = `${one}s`) =>
   `${n} ${n === 1 ? one : many}`;
 
 const cards = [
   { href: '/about/', title: 'About', blurb: overview.about, meta: null },
-  { href: '/work/', title: 'Work', blurb: overview.work, meta: count(projects.length, 'project') },
-  { href: '/writing/', title: 'Writing', blurb: overview.writing, meta: count(writing.length, 'post') },
+  {
+    href: '/experience/',
+    title: 'Experience',
+    blurb: overview.experience,
+    meta: count(experience.length, 'role'),
+  },
+  {
+    href: '/projects/',
+    title: 'Projects',
+    blurb: overview.projects,
+    meta: count(projects.length, 'project'),
+  },
 ];
 
 // Drives the scroll rail — ids must match the sections below.

@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { overview } from '../../site.config';
+
+const roles = (await getCollection('experience', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf()
+);
+const rendered = await Promise.all(roles.map((r) => render(r)));
+---
+
+<Base title="Experience" description={overview.experience}>
+  <section class="page-head wrap">
+    <h1 data-reveal>Experience</h1>
+    <p class="lede" data-reveal>{overview.experience}</p>
+  </section>
+
+  <section class="section wrap">
+    {
+      roles.length === 0 ? (
+        <p class="empty">Add markdown files to src/content/experience/ to fill this in.</p>
+      ) : (
+        <div class="items">
+          {roles.map((r, i) => {
+            const { Content } = rendered[i];
+            return (
+              <div class="item item-block" data-reveal data-reveal-delay={i * 70}>
+                <span class="item-title">
+                  {r.data.role} · {r.data.company}
+                </span>
+                <span class="item-meta">
+                  {r.data.start} – {r.data.end ?? 'Present'}
+                  {r.data.location && ` · ${r.data.location}`}
+                </span>
+                {r.data.summary && <span class="item-summary">{r.data.summary}</span>}
+                <div class="item-body">
+                  <Content />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )
+    }
+  </section>
+</Base>

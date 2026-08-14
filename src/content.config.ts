@@ -15,15 +15,22 @@ const projects = defineCollection({
   }),
 });
 
-const writing = defineCollection({
-  loader: glob({ base: './src/content/writing', pattern: '**/*.md' }),
+const experience = defineCollection({
+  loader: glob({ base: './src/content/experience', pattern: '**/*.md' }),
   schema: z.object({
-    title: z.string(),
+    role: z.string(),
+    company: z.string(),
+    location: z.string().optional(),
+    // e.g. "2023" or "Jan 2023" — kept as free-form strings so you can be as
+    // precise or as vague as you like.
+    start: z.string(),
+    // Omit (or leave unset) for a current role — renders as "Present".
+    end: z.string().optional(),
     summary: z.string().optional(),
-    date: z.coerce.date(),
-    external: z.string().url().optional(),
+    // Sorts the list; most recent first. Use the start year if unsure.
+    sortDate: z.coerce.date(),
     draft: z.boolean().default(false),
   }),
 });
 
-export const collections = { projects, writing };
+export const collections = { projects, experience };

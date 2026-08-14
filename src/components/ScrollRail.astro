@@ -62,6 +62,12 @@ const { sections } = Astro.props;
       for (const el of sections) {
         if (el.getBoundingClientRect().top <= line) current = el.id;
       }
+      // At the very bottom of the page there may not be enough room below
+      // the last section for its top to ever reach the 40% line — force it
+      // active so scrolling all the way down always highlights it.
+      if (window.scrollY + window.innerHeight >= root.scrollHeight - 1) {
+        current = sections[sections.length - 1]?.id ?? current;
+      }
       setActive(current);
     };
 

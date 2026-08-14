@@ -107,11 +107,37 @@ img { max-width: 100%; height: auto; display: block; }
   transition: opacity 0.4s linear;
 }
 
+/* Dots live in the gutters only. The canvas still spans the viewport — a mask
+   clears the centre band (the 46rem content column plus breathing room) and
+   feathers the edge so the field fades out instead of stopping at a hard line.
+   On viewports narrower than ~58rem the column fills the screen, so the mask
+   covers everything and the dots simply aren't there. */
 .backdrop-dots {
+  --gutter-edge: 29rem; /* half-width where dots start fading in */
+  --gutter-clear: 24rem; /* half-width that stays fully clear */
+
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(50% - var(--gutter-edge)),
+    transparent calc(50% - var(--gutter-clear)),
+    transparent calc(50% + var(--gutter-clear)),
+    #000 calc(50% + var(--gutter-edge)),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(50% - var(--gutter-edge)),
+    transparent calc(50% - var(--gutter-clear)),
+    transparent calc(50% + var(--gutter-clear)),
+    #000 calc(50% + var(--gutter-edge)),
+    #000 100%
+  );
 }
 
 /* ── Scroll rail ────────────────────────────────────────── */
@@ -325,6 +351,19 @@ section[id] { scroll-margin-top: 4.5rem; }
   color: var(--muted);
   font-size: 0.9375rem;
 }
+
+/* Non-link items (e.g. experience entries) with a bulleted body. */
+.item-block { cursor: default; }
+.item-block:hover .item-title { opacity: 1; }
+.item-body {
+  grid-column: 1 / -1;
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.item-body ul { padding-left: 1.15rem; margin: 0; }
+.item-body li { margin-bottom: 0.35rem; }
+.item-body li:last-child { margin-bottom: 0; }
 
 .empty {
   color: var(--muted);
