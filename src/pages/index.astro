@@ -80,5 +80,8 @@ const sections = [
     <p class="section-label" data-reveal>Contact</p>
     <h2 data-reveal>Have something in mind? Let’s talk.</h2>
     <p data-reveal><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    <div class="socials" data-reveal>
+      {socials.filter((s) => s.label !== 'Email').map((s) => <a href={s.href} rel="me noopener">{s.label}</a>)}
+    </div>
   </section>
 </Base>

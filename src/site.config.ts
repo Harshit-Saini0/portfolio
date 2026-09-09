@@ -7,20 +7,20 @@ export const site = {
   role: 'Computer Engineering @ Texas A&M',
   email: 'harshit06saini@gmail.com',
   // Shown in <meta description> and social previews.
-  description: 'Personal site and portfolio of Harshit Saini — computer engineer building perception systems, robotics, and web products.',
+  description: 'Personal site and portfolio of Harshit Saini, a computer engineer building perception systems, robotics, and web products.',
 };
 
 export const hero = {
   // The big statement at the top. Keep it to one line if you can.
-  headline: 'Building perception systems and products that ship.',
+  headline: 'Building autonomous systems and products that ship.',
   // One or two sentences of context under the headline.
   intro:
-    'Computer Engineering student at Texas A&M, currently researching autonomous vehicle perception at the ENDEAVR Institute and building flight software for the Texas A&M Vertical Flight Society. Previously leading marketing and web development for tidalTAMU.',
+    'Computer Engineering student at Texas A&M, currently researching autonomous vehicle perception at the ENDEAVR Institute, co-authoring an LLM multi-agent safety paper under review at NeurIPS 2026, building flight software for the Texas A&M Vertical Flight Society, and leading marketing and web development for tidalTAMU.',
 };
 
 export const about = [
-  "I'm a Computer Engineering student at Texas A&M, minoring in Math, with a 4.0 GPA as a President's Endowed Merit Scholar and National Merit Scholar. I'm passionate about using engineering and leadership to solve complex problems and contribute to research in tech — right now that means autonomous vehicle perception, embedded flight software, and machine learning.",
-  "Day to day I move between research (fine-tuning vision models on HPC clusters, building low-cost perception rigs), embedded and robotics work (ROS 2, Raspberry Pi, edge hardware), and full-stack web development. I like projects that force me to work across that whole stack.",
+  "I'm a Computer Engineering student at Texas A&M, minoring in Math, with a 4.0 GPA as a President's Endowed Merit Scholar and National Merit Scholar. I'm passionate about using engineering and leadership to solve complex problems and contribute to research in tech — right now that means autonomous vehicle perception, embedded flight software, and LLM agent safety.",
+  "Day to day I move between research (fine-tuning vision models on HPC clusters, building low-cost perception rigs, and studying multi-agent LLM safety with an independent research team spanning several universities), embedded and robotics work (ROS 2, Raspberry Pi, edge hardware), and full-stack web development. I like projects that force me to work across that whole stack.",
   'Outside of engineering I run marketing and web development for tidalTAMU, sit on the Engineering Honors executive committee, and I am usually the one dragging a Raspberry Pi into a project that did not need one.',
 ];
 
