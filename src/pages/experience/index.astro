@@ -36,6 +36,11 @@ const rendered = await Promise.all(roles.map((r) => render(r)));
                 <div class="item-body">
                   <Content />
                 </div>
+                {r.data.link && (
+                  <a class="item-link" href={r.data.link} target="_blank" rel="noopener">
+                    {r.data.linkLabel ?? 'View'} →
+                  </a>
+                )}
               </div>
             );
           })}

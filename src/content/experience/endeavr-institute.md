@@ -4,7 +4,7 @@ company: ENDEAVR Institute
 location: College Station, TX
 start: "Oct 2025"
 end: "Present"
-sortDate: 2025-10-01
+sortDate: 2026-09-10
 ---
 
 - Architected a low-cost autonomous vehicle perception system integrating 4 NVIDIA Orin Nano SBCs, 8 cameras, and a custom-fabricated enclosure, reducing hardware costs by 50% vs. standard LiDAR-based rigs.

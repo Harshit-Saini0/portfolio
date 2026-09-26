@@ -29,6 +29,9 @@ const experience = defineCollection({
     summary: z.string().optional(),
     // Sorts the list; most recent first. Use the start year if unsure.
     sortDate: z.coerce.date(),
+    // Optional outbound link (e.g. a paper PDF) shown below the bullets.
+    link: z.string().optional(),
+    linkLabel: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

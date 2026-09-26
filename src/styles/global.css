@@ -365,6 +365,20 @@ section[id] { scroll-margin-top: 4.5rem; }
 .item-body li { margin-bottom: 0.35rem; }
 .item-body li:last-child { margin-bottom: 0; }
 
+.item-link {
+  grid-column: 1 / -1;
+  display: inline-block;
+  width: fit-content;
+  margin-top: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg);
+  border-bottom: 1px solid var(--line);
+}
+.item-link:hover { opacity: 0.6; }
+
 .empty {
   color: var(--muted);
   font-size: 0.9375rem;
