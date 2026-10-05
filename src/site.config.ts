@@ -15,7 +15,7 @@ export const hero = {
   headline: 'Building autonomous systems and products that run in the real world.',
   // One or two sentences of context under the headline.
   intro:
-    'Computer Engineering student at Texas A&M, currently researching autonomous vehicle perception at the ENDEAVR Institute, co-authoring an LLM multi-agent safety paper under review at NeurIPS 2026, building flight software for the Texas A&M Vertical Flight Society, and leading marketing and web development for tidalTAMU.',
+    'Computer Engineering student at Texas A&M, researching autonomous vehicle perception at the ENDEAVR Institute, building flight software for the Texas A&M Vertical Flight Design Team, and leading marketing and web development for tidalTAMU. Co-author of an LLM multi-agent safety paper accepted to the NeurIPS 2026 Workshop on Interpreting Agent Behavior (IAB).',
 };
 
 export const about = [

@@ -1,6 +1,6 @@
 ---
 role: Flight Software and Embedded Systems Engineer
-company: Texas A&M Vertical Flight Society
+company: Texas A&M Vertical Flight Design Team
 location: College Station, TX
 start: "Apr 2026"
 end: "Present"
