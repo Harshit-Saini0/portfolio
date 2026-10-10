@@ -10,12 +10,16 @@ link: /papers/language-action-decoupling.pdf
 linkLabel: Read the paper (PDF)
 ---
 
-- Designed and ran a simulated trading-firm environment with an LLM manager mediating between a founder and two trader agents, built to test whether organizational hierarchies elicit misconduct from LLM agents without it being explicitly prompted.
-- Built simulator-level ground truth for two distinct forms of agent dishonesty (signal withholding and position misreporting), removing the need for an LLM judge to adjudicate misconduct.
-- Managers’ allocation gap rose from 0.55 under low pressure to 0.85 when consequences were attached to relative performance.
-- Identified and quantified a "language–action decoupling" in the manager agent: its delivered language stayed nearly flat across every pressure level while its capital allocations shifted sharply, showing that transcript-only oversight can miss a treatment effect that is fully legible in an agent's actions.
-- Ran statistical analysis (bootstrapped contrasts, logistic slopes, Fisher's exact tests) across two incentive regimes, 120 simulated episodes, and 2,400 trader-decisions to separate genuine misconduct from monitoring artifacts.
-- Collaborated remotely with Sunny Zhang (University of Toronto) and Francesco Febbo (Stevens Institute of Technology) on experiment design, environment engineering, and paper writing.
-- Code repository is private for now.
+I designed and ran a simulated trading firm where an LLM manager sat between a founder and two trader agents. We used it to test whether an organizational hierarchy could lead agents to act dishonestly without anyone explicitly asking them to.
 
-[View the accepted workshop paper on OpenReview](https://openreview.net/forum?id=z2uKDlMh5j).
+The simulator recorded ground truth for two kinds of dishonesty: withholding signals and misreporting positions. That let us measure misconduct without relying on another LLM to judge it.
+
+## What we found
+
+Managers' allocation gap rose from 0.55 under low pressure to 0.85 when relative performance had consequences. The manager's language barely changed across pressure levels, even as its capital allocations shifted sharply. We called this "language–action decoupling": oversight based only on transcripts could miss an effect that was clear in the agent's actions.
+
+I ran statistical analyses across two incentive regimes, 120 simulated episodes, and 2,400 trader-decisions. Bootstrapped contrasts, logistic slopes, and Fisher's exact tests helped separate misconduct from monitoring artifacts.
+
+I worked remotely with Sunny Zhang at the University of Toronto and Francesco Febbo at Stevens Institute of Technology on the experiments, simulation environment, and paper. The code repository is private for now.
+
+[Read the accepted workshop paper on OpenReview](https://openreview.net/forum?id=z2uKDlMh5j).

@@ -1,12 +1,12 @@
 # Portfolio
 
-A minimalist personal site built with [Astro](https://astro.build). Static output — no backend, no client-side JavaScript shipped beyond a few small scripts, no database. Deploys free to Vercel, Netlify, Cloudflare Pages or GitHub Pages.
+My personal site, built with [Astro](https://astro.build). It generates static pages and ships a few small browser scripts. It has no backend or database and can be hosted on Vercel, Netlify, Cloudflare Pages, or GitHub Pages.
 
 Live at [harshitsainiportfolio.vercel.app](https://harshitsainiportfolio.vercel.app/).
 
 ## Structure
 
-The landing page is an index: a hero, then a one-line overview of each section. Everything else gets its own page.
+The home page has an introduction, links to each section, and contact details. About, experience, and projects have their own pages.
 
 ```
 /               hero + section overviews + contact
@@ -24,13 +24,13 @@ npm run build    # static site → dist/
 npm run preview  # preview the built site
 ```
 
-## Fill in your details
+## Edit the site
 
-**1. `src/site.config.ts`** — name, role, email, hero headline, about paragraphs, the one-line `overview` teasers shown on the landing page, social links, the "worked with" strip, and the nav. This is the only file you need to touch for the copy.
+**1. `src/site.config.ts`:** name, role, email, hero headline, about paragraphs, the one-line `overview` teasers shown on the landing page, social links, the "worked with" strip, and the nav. Project and experience text lives in the Markdown files below; page templates contain a few short labels and messages.
 
-**2. `astro.config.mjs`** — `site` is set to the deployed URL; it drives canonical URLs and the sitemap. Update it if the domain changes.
+**2. `astro.config.mjs`:** `site` is set to the deployed URL; it drives canonical URLs and the sitemap. Update it if the domain changes.
 
-**3. Experience** — one markdown file per role in `src/content/experience/`, most recent `sortDate` first.
+**3. Experience:** one markdown file per role in `src/content/experience/`, most recent `sortDate` first.
 
 ```yaml
 ---
@@ -46,7 +46,7 @@ sortDate: 2026-01-01        # drives ordering — use the start date
 - Bullet points describing the role render as a markdown list.
 ```
 
-**4. Projects** — one markdown file per project in `src/content/projects/`. The filename becomes the URL (`about-thing.md` → `/projects/about-thing/`).
+**4. Projects:** one markdown file per project in `src/content/projects/`. The filename becomes the URL (`about-thing.md` → `/projects/about-thing/`).
 
 ```yaml
 ---
@@ -61,17 +61,17 @@ draft: false           # optional — true hides it everywhere
 Markdown body renders on the detail page (skipped if `external` is set).
 ```
 
-The sections show a placeholder note when a folder is empty.
+Empty sections show a short message until you add an entry.
 
-**5. Design** — all colours, spacing and type live in the variables at the top of `src/styles/global.css`. Light and dark themes follow the visitor's system setting.
+**5. Design:** all colours, spacing and type live in the variables at the top of `src/styles/global.css`. Light and dark themes follow the visitor's system setting.
 
-**6. Motion** — two small pieces, both off automatically under `prefers-reduced-motion`:
+**6. Motion:** two effects, both disabled when the visitor uses `prefers-reduced-motion`:
 
 - *Reveal on scroll*: add `data-reveal` to any element and it fades and lifts in once. `data-reveal-delay="120"` staggers it.
-- *Backdrop*: a colour wash that eases from `--wash-top` to `--wash-bottom` as you scroll, plus a field of dots drawn on a canvas in `src/components/Backdrop.astro` that drifts with fractal noise. Tune `SPACING`, `MAX_R`, `ALPHA`, `DRIFT` and `SCROLL_RATE` there — or delete the `<Backdrop />` line in `src/layouts/Base.astro` to drop it entirely.
+- *Backdrop*: a colour wash that eases from `--wash-top` to `--wash-bottom` as you scroll, plus a field of dots drawn on a canvas in `src/components/Backdrop.astro` that drifts with fractal noise. Tune `SPACING`, `MAX_R`, `ALPHA`, `DRIFT` and `SCROLL_RATE` there, or delete the `<Backdrop />` line in `src/layouts/Base.astro` to drop it entirely.
 
-**7. Images** — drop files in `public/` and reference them as `/photo.jpg`. Replace `public/favicon.svg` with your own.
+**7. Images:** drop files in `public/` and reference them as `/photo.jpg`. Replace `public/favicon.svg` with your own.
 
 ## Deploy
 
-Build command `npm run build`, publish directory `dist`. On Vercel: import the GitHub repo, it auto-detects Astro and deploys on every push to `main`.
+Use `npm run build` as the build command and `dist` as the publish directory. On Vercel, import the GitHub repo. It detects Astro and deploys on every push to `main`.

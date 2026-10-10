@@ -7,6 +7,6 @@ end: "Present"
 sortDate: 2025-02-01
 ---
 
-- Directed full-stack development for the TIDAL hackathon website using React and TypeScript, hosting 5,000+ unique visitors.
-- Led a social media marketing campaign that gained 500,000+ social media views, directly driving a 30% increase in event attendees from the previous semester.
-- Secured strategic partnerships with big tech sponsors (Microsoft, Cane's, AWS, Google Cloud), resulting in $5,000 in additional funding and credits for student projects.
+I lead marketing and web development for tidalTAMU. I directed full-stack development of the TIDAL hackathon website in React and TypeScript, which served 5,000+ unique visitors.
+
+A social media campaign I led reached 500,000+ views and drove a 30% increase in event attendance over the previous semester. I also secured sponsorships from Microsoft, Cane's, AWS, and Google Cloud, bringing in an additional $5,000 in funding and credits for student projects.

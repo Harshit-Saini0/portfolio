@@ -7,4 +7,4 @@ end: "Present"
 sortDate: 2026-01-01
 ---
 
-- Coordinating two major industry networking events per year, connecting 500+ honors students with recruiters from top engineering firms.
+I'm coordinating two major industry networking events a year, connecting 500+ honors students with recruiters from leading engineering firms.

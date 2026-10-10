@@ -1,17 +1,12 @@
 ---
 title: "VEST: Canine Health Monitor"
-summary: A noninvasive vest system that continuously monitors canine vital signs for early detection of health issues.
+summary: A noninvasive vest that continuously tracks dogs' vital signs to help detect health issues early.
 date: 2026-01-01
 kind: case study
 ---
 
-Built with an engineering team as a noninvasive wearable that tracks canine vital signs — heart rate, respiratory rate, and body temperature — to catch health issues early.
+I worked with an engineering team on a noninvasive vest that continuously tracks a dog's heart rate, respiratory rate, and body temperature to help catch health issues early.
 
-## What I did
+My work focused on algorithms that process vital sign data using Markov and machine learning models to identify health trends across breeds and sizes. We're targeting error rates below 5% for clinical reliability. I also prototyped cloud and wireless communication protocols to send data quickly and reliably to a companion mobile app.
 
-- Built algorithms to process and interpret vital sign data with Markov and machine learning models that identify health trends across multiple breeds and sizes, targeting under 5% error rates for clinical reliability.
-- Prototyped cloud and wireless communication protocols to support fast and reliable data transmission to a companion mobile app.
-
-## Outcome
-
-Presented at poster sessions with a working hardware prototype; ongoing work targets clinical-grade reliability across breeds and sizes.
+We've presented a working hardware prototype at poster sessions. Work toward clinical-grade reliability across breeds and sizes is ongoing.

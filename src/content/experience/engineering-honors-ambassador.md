@@ -7,4 +7,4 @@ end: "Present"
 sortDate: 2024-11-01
 ---
 
-- Represent the Engineering Honors program to prospective students and families through communication and public speaking engagements.
+I represent Engineering Honors at events for prospective students and their families, speaking with them about the program.

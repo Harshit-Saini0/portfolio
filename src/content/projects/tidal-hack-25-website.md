@@ -5,9 +5,6 @@ date: 2025-08-01
 kind: website
 ---
 
-## Website and registration
+I built both the site and registration platform. It served 5,000+ unique visitors.
 
-- Built the website and registration platform for tidalTAMU’s flagship hackathon using React and TypeScript.
-- The website served 5,000+ unique visitors.
-
-[Explore the live website and registration platform](https://tidaltamu.com/hackathon).
+[Visit the hackathon website](https://tidaltamu.com/hackathon).

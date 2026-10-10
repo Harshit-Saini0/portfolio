@@ -7,5 +7,6 @@ end: "Present"
 sortDate: 2026-04-01
 ---
 
-- Develop autonomous UAV flight software in Python and C++ using ROS 2, integrating computer vision and machine learning pipelines for real-time perception and decision-making on embedded flight hardware.
-- Implement multi-stage mission autonomy including waypoint navigation and payload pickup, validated through Gazebo simulations and deployed onto VFD aircraft for national SUAS and DBVF competitions.
+I develop autonomous UAV flight software in Python and C++ using ROS 2. The software combines computer vision and machine learning for real-time perception and decision-making on embedded flight hardware.
+
+I also implement multi-stage missions, including waypoint navigation and payload pickup. These are validated in Gazebo simulations and deployed on VFD aircraft for the national SUAS and DBVF competitions.

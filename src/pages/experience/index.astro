@@ -18,7 +18,7 @@ const rendered = await Promise.all(roles.map((r) => render(r)));
   <section class="section wrap">
     {
       roles.length === 0 ? (
-        <p class="empty">Add markdown files to src/content/experience/ to fill this in.</p>
+        <p class="empty">No experience entries published yet.</p>
       ) : (
         <div class="items">
           {roles.map((r, i) => {

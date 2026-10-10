@@ -1,16 +1,10 @@
 ---
 title: Peer-to-Peer Crypto Exchange Platform
-summary: An HTML-based fintech platform for direct cryptocurrency currency exchange, built for PolyHack 2023.
+summary: An HTML-based platform for exchanging currency directly using cryptocurrencies, built for PolyHack 2023.
 date: 2023-06-01
 kind: hackathon
 ---
 
-Led development of an HTML-based fintech platform designed to facilitate direct currency exchanges using cryptocurrencies, bypassing middleman fees.
+I led development of the platform. Removing intermediaries was intended to cut fees by up to 10%.
 
-## What I did
-
-- Led the development of an HTML-based fintech platform for peer-to-peer currency exchange using cryptocurrencies, designed to reduce fees by up to 10% by removing intermediaries.
-
-## Outcome
-
-Received a Merit Award at PolyHack 2023 for placing in the top 15 teams, earning a finalist spot in the live presentation round in Hong Kong.
+The project received a Merit Award for placing in the top 15 teams and reached the live presentation final in Hong Kong.
