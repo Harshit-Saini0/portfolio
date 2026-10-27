@@ -5,6 +5,13 @@ location: College Station, TX
 start: "Oct 2025"
 end: "Present"
 sortDate: 2026-09-10
+media:
+  - image: ./media/endeavr-sam3-segmentation.jpg
+    alt: SAM3 semantic segmentation overlay on a street scene, with vehicles in red, pedestrians in yellow, and drivable road surface in green
+    caption: SAM3 segmentation, semantic overlay
+  - image: ./media/endeavr-bev-occupancy.jpg
+    alt: Bird's-eye-view occupancy grids at 20, 40, and 80 cm resolution, built from three front camera views, with height-coded cells and RGB surface voxels
+    caption: BEV occupancy grids at 20, 40, and 80 cm
 ---
 
 I designed a low-cost autonomous vehicle perception system with 4 NVIDIA Orin Nano SBCs, 8 cameras, and a custom-fabricated enclosure. Its projected hardware cost is 50% lower than standard LiDAR-based rigs.
