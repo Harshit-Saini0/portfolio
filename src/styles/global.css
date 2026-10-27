@@ -302,6 +302,16 @@ section[id] { scroll-margin-top: 4.5rem; }
 
 .hero { padding-block: clamp(4rem, 12vw, 8rem) var(--gap); }
 
+.avatar {
+  width: 5.5rem;
+  height: 5.5rem;
+  margin-bottom: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Hairline ring in the border colour, so it sits on the page like the cards do. */
+  box-shadow: 0 0 0 1px var(--line);
+}
+
 .hero h1 {
   font-size: clamp(1.9rem, 5.5vw, 3rem);
   max-width: 18ch;
