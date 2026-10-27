@@ -395,8 +395,25 @@ section[id] { scroll-margin-top: 4.5rem; }
    one big click target while media links inside it remain clickable. */
 .item-linked { position: relative; }
 .item-linked .item-title { border-bottom: none; }
+/* Underline + arrow mark the title as a link; both strengthen on hover. */
+.item-title-text {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--fg) 30%, transparent);
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 0.15s ease;
+}
+.item-arrow {
+  display: inline-block;
+  margin-left: 0.35em;
+  font-size: 0.95em;
+  color: var(--muted);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+}
+.item-linked:hover:not(:has(.media:hover)) .item-title-text { text-decoration-color: var(--fg); }
+.item-linked:hover:not(:has(.media:hover)) .item-arrow { transform: translateX(4px); color: var(--fg); }
 .item-linked .item-title::after { content: ''; position: absolute; inset: 0; }
-.item-linked:has(.media:hover) .item-title { opacity: 1; }
+.item-linked:hover .item-title { opacity: 1; }
 
 /* ── Media panel ────────────────────────────────────────── */
 

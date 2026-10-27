@@ -32,7 +32,8 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
                 href={p.data.external ?? `/projects/${p.id}/`}
                 rel={p.data.external ? 'noopener' : undefined}
               >
-                {p.data.title}
+                <span class="item-title-text">{p.data.title}</span>
+                <span class="item-arrow" aria-hidden="true">{p.data.external ? '↗' : '→'}</span>
               </a>
               <span class="item-meta">
                 {p.data.kind} · {p.data.date.getFullYear()}
