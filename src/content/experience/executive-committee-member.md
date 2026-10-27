@@ -2,9 +2,11 @@
 role: Executive Committee Member
 company: Texas A&M Engineering Honors
 location: College Station, TX
-start: "Jan 2026"
-end: "Present"
-sortDate: 2026-01-01
+start: "Nov 2024"
+end: "Aug 2026"
+sortDate: 2024-11-01
 ---
 
-I'm coordinating two major industry networking events a year, connecting 500+ honors students with recruiters from leading engineering firms.
+I coordinated two major industry networking events a year, connecting 500+ honors students with recruiters from leading engineering firms.
+
+I also served as an Engineering Honors Ambassador, representing the program at events for prospective students and their families.

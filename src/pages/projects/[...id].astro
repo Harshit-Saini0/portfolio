@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import MediaPanel from '../../components/MediaPanel.astro';
 
 export const getStaticPaths = (async () => {
   const projects = await getCollection('projects', ({ data }) => !data.draft && !data.external);
@@ -20,7 +21,12 @@ const date = entry.data.date.toLocaleDateString('en-US', { year: 'numeric', mont
     <p class="item-meta" style="display:block;margin-top:0.75rem" data-reveal>
       {entry.data.kind} · {date}
     </p>
-    <p class="muted" style="margin-top:1.5rem" data-reveal>{entry.data.summary}</p>
-    <div class="prose" data-reveal><Content /></div>
+    <div class:list={['detail', { 'has-media': entry.data.media.length > 0 }]}>
+      <div class="detail-text">
+        <p class="muted" data-reveal>{entry.data.summary}</p>
+        <div class="prose" data-reveal><Content /></div>
+      </div>
+      <div class="detail-media" data-reveal><MediaPanel media={entry.data.media} /></div>
+    </div>
   </article>
 </Base>

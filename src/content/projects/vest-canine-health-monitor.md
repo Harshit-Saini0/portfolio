@@ -3,6 +3,16 @@ title: "VEST: Canine Health Monitor"
 summary: A noninvasive vest that continuously tracks dogs' vital signs to help detect health issues early.
 date: 2026-01-01
 kind: case study
+media:
+  - image: ./media/vest-presenting.jpg
+    alt: Harshit presenting the VEST research poster at a poster session
+    caption: Presenting VEST at the poster session
+  - image: ./media/vest-prototype.jpg
+    alt: The VEST prototype harness, with its 3D-printed electronics housing, fitted on an inflatable dog mannequin in the lab
+    caption: Prototype fitted on a test mannequin
+  - image: ./media/vest-poster.jpg
+    alt: The VEST research poster covering sensors, materials, software architecture, and machine learning results
+    caption: Research poster, TURTLE Lab
 ---
 
 I worked with an engineering team on a noninvasive vest that continuously tracks a dog's heart rate, respiratory rate, and body temperature to help catch health issues early.

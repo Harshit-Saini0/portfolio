@@ -5,6 +5,10 @@ location: College Station, TX
 start: "Feb 2025"
 end: "Present"
 sortDate: 2025-02-01
+media:
+  - link: https://tidaltamu.com/hackathon
+    title: TIDAL Hackathon website
+    image: ../projects/media/tidal-hack-25-site.jpg
 ---
 
 I lead marketing and web development for tidalTAMU. I directed full-stack development of the TIDAL hackathon website in React and TypeScript, which served 5,000+ unique visitors.

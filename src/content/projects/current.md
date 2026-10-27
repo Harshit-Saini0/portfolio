@@ -3,6 +3,9 @@ title: Peer-to-Peer Crypto Exchange Platform
 summary: An HTML-based platform for exchanging currency directly using cryptocurrencies, built for PolyHack 2023.
 date: 2023-06-01
 kind: hackathon
+media:
+  - link: https://github.com/Harshit-Saini0/Current
+    title: Current source code
 ---
 
 I led development of the platform. Removing intermediaries was intended to cut fees by up to 10%.

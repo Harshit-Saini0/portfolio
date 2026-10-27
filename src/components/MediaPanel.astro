@@ -1,0 +1,125 @@
+---
+// Side panel of pictures and link cards for a project or experience entry.
+// Pictures open in a lightbox; link cards show the page's preview image.
+import type { CollectionEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { getLinkPreview, previewKey } from '../lib/link-preview';
+
+interface Props {
+  media: CollectionEntry<'projects'>['data']['media'];
+}
+
+const { media } = Astro.props;
+
+// Link preview images saved by previous builds (see src/lib/link-preview.ts).
+const saved = new Map(
+  Object.entries(
+    import.meta.glob<{ default: ImageMetadata }>('../assets/link-previews/*.{png,jpg,webp,gif}', {
+      eager: true,
+    })
+  ).map(([file, mod]) => [file.split('/').pop()!.replace(/\.\w+$/, ''), mod.default])
+);
+const sizes = '(max-width: 46rem) 72vw, 14rem';
+const widths = [320, 480, 720];
+
+const items = await Promise.all(
+  media.map(async (m) => {
+    if ('link' in m) {
+      const wantImage = m.preview && !m.image;
+      const meta = await getLinkPreview(m.link, { image: wantImage });
+      // Prefer the saved copy. Only an image saved for the first time during
+      // this build falls back to the remote URL; with neither, a plain tile.
+      const local = wantImage ? saved.get(previewKey(m.link)) : undefined;
+      const remote =
+        wantImage && !local && meta.image
+          ? await getImage({ src: meta.image, inferSize: true, widths, sizes }).catch(() => undefined)
+          : undefined;
+      // Off-site pages and files like PDFs open in a new tab.
+      const newTab = /^https?:\/\//.test(m.link) || /\.pdf$/i.test(m.link);
+      return { kind: 'link' as const, ...m, meta, local, remote, newTab };
+    }
+    const full = await getImage({ src: m.image, width: Math.min(m.image.width, 1800) });
+    return { kind: 'image' as const, ...m, full: full.src };
+  })
+);
+---
+
+{
+  items.length > 0 && (
+    <aside class="media" aria-label="Media">
+      {items.map((m) =>
+        m.kind === 'image' ? (
+          <figure class="media-figure">
+            <a class="media-frame" href={m.full} data-lightbox data-caption={m.caption}>
+              <Image src={m.image} alt={m.alt} widths={widths} sizes={sizes} />
+            </a>
+            {m.caption && <figcaption>{m.caption}</figcaption>}
+          </figure>
+        ) : (
+          <a
+            class="media-card"
+            href={m.link}
+            target={m.newTab ? '_blank' : undefined}
+            rel={m.newTab ? 'noopener' : undefined}
+          >
+            {m.preview && (
+              <span class="media-frame media-frame-wide">
+                {m.image ? (
+                  <Image src={m.image} alt="" widths={widths} sizes={sizes} class="is-top" />
+                ) : m.local ? (
+                  <Image src={m.local} alt="" widths={widths} sizes={sizes} />
+                ) : m.remote ? (
+                  <img
+                    src={m.remote.src}
+                    srcset={m.remote.srcSet.attribute}
+                    sizes={sizes}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span class="media-tile" aria-hidden="true">{m.meta.label}</span>
+                )}
+              </span>
+            )}
+            <span class:list={['media-card-text', { 'is-bare': !m.preview }]}>
+              <span class="media-card-label">{m.meta.label} ↗</span>
+              <span class="media-card-title">{m.title ?? m.meta.title ?? m.link}</span>
+            </span>
+          </a>
+        )
+      )}
+    </aside>
+  )
+}
+
+<script>
+  // One shared lightbox for every [data-lightbox] link on the page. Without JS
+  // the link just opens the full-size image.
+  let dialog: HTMLDialogElement | undefined;
+
+  function open(link: HTMLAnchorElement) {
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'lightbox';
+      dialog.innerHTML = '<figure><img alt="" /><figcaption></figcaption></figure>';
+      dialog.addEventListener('click', () => dialog!.close());
+      document.body.append(dialog);
+    }
+    const img = dialog.querySelector('img')!;
+    const caption = dialog.querySelector('figcaption')!;
+    img.src = link.href;
+    img.alt = link.querySelector('img')?.alt ?? '';
+    caption.textContent = link.dataset.caption ?? '';
+    caption.hidden = !link.dataset.caption;
+    dialog.showModal();
+  }
+
+  document.addEventListener('click', (e) => {
+    const link = (e.target as Element).closest<HTMLAnchorElement>('a[data-lightbox]');
+    if (!link || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    open(link);
+  });
+</script>

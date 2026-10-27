@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import MediaPanel from '../../components/MediaPanel.astro';
 import { overview } from '../../site.config';
 
 const roles = (await getCollection('experience', ({ data }) => !data.draft)).sort(
@@ -24,7 +25,11 @@ const rendered = await Promise.all(roles.map((r) => render(r)));
           {roles.map((r, i) => {
             const { Content } = rendered[i];
             return (
-              <div class="item item-block" data-reveal data-reveal-delay={i * 70}>
+              <div
+                class:list={['item item-block', { 'has-media': r.data.media.length > 0 }]}
+                data-reveal
+                data-reveal-delay={i * 70}
+              >
                 <span class="item-title">
                   {r.data.role} · {r.data.company}
                 </span>
@@ -32,15 +37,18 @@ const rendered = await Promise.all(roles.map((r) => render(r)));
                   {r.data.start} – {r.data.end ?? 'Present'}
                   {r.data.location && ` · ${r.data.location}`}
                 </span>
-                {r.data.summary && <span class="item-summary">{r.data.summary}</span>}
-                <div class="item-body">
-                  <Content />
+                <div class="item-text">
+                  {r.data.summary && <span class="item-summary">{r.data.summary}</span>}
+                  <div class="item-body">
+                    <Content />
+                  </div>
+                  {r.data.link && (
+                    <a class="item-link" href={r.data.link} target="_blank" rel="noopener">
+                      {r.data.linkLabel ?? 'View'} →
+                    </a>
+                  )}
                 </div>
-                {r.data.link && (
-                  <a class="item-link" href={r.data.link} target="_blank" rel="noopener">
-                    {r.data.linkLabel ?? 'View'} →
-                  </a>
-                )}
+                <MediaPanel media={r.data.media} />
               </div>
             );
           })}

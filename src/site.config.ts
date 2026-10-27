@@ -21,7 +21,7 @@ export const hero = {
 export const about = [
   "I'm studying computer engineering at Texas A&M with a minor in math. I have a 4.0 GPA and am a President's Endowed Merit Scholar and National Merit Scholar. My research interests are autonomous vehicle perception and LLM agent safety, and I also work on embedded flight software.",
   "Some days I'm fine-tuning vision models on HPC clusters; others, I'm building low-cost perception rigs or working with ROS 2, Raspberry Pi, and edge hardware. I also do full-stack web development. I like projects that make me work across the computer, from low-level hardware to the software people use.",
-  "Outside of engineering, I run marketing and web development for tidalTAMU and sit on the Engineering Honors executive committee. I'm usually the one dragging a Raspberry Pi into a project that didn't need one.",
+  "Outside of engineering, I run marketing and web development for tidalTAMU, and until August 2026 I served on the Engineering Honors executive committee. I'm usually the one dragging a Raspberry Pi into a project that didn't need one.",
 ];
 
 // One-line teaser for each section, shown on the landing page.

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import MediaPanel from '../../components/MediaPanel.astro';
 import { overview } from '../../site.config';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
@@ -21,19 +22,26 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
       ) : (
         <div class="items">
           {projects.map((p, i) => (
-            <a
-              class="item"
-              href={p.data.external ?? `/projects/${p.id}/`}
-              rel={p.data.external ? 'noopener' : undefined}
+            <article
+              class:list={['item item-linked', { 'has-media': p.data.media.length > 0 }]}
               data-reveal
               data-reveal-delay={i * 70}
             >
-              <span class="item-title">{p.data.title}</span>
+              <a
+                class="item-title"
+                href={p.data.external ?? `/projects/${p.id}/`}
+                rel={p.data.external ? 'noopener' : undefined}
+              >
+                {p.data.title}
+              </a>
               <span class="item-meta">
                 {p.data.kind} · {p.data.date.getFullYear()}
               </span>
-              <span class="item-summary">{p.data.summary}</span>
-            </a>
+              <div class="item-text">
+                <span class="item-summary">{p.data.summary}</span>
+              </div>
+              <MediaPanel media={p.data.media} />
+            </article>
           ))}
         </div>
       )
