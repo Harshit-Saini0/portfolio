@@ -5,6 +5,10 @@ location: College Station, TX
 start: "Nov 2024"
 end: "Aug 2026"
 sortDate: 2024-11-01
+media:
+  - link: https://engineering.tamu.edu/academics/eh/student-leadership.html
+    title: Engineering Honors Student Leadership
+    image: ./media/eh-student-leadership.jpg
 ---
 
 I coordinated two major industry networking events a year, connecting 500+ honors students with recruiters from leading engineering firms.
